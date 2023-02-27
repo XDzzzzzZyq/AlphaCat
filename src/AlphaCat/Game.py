@@ -19,6 +19,9 @@ class Game:
         self.max_len = win
         self.board = np.zeros((size, size), dtype=int)
 
+    def reset(self):
+        self.board = np.zeros((self.size, self.size), dtype=int)
+
     def debug(self) -> None:
         print(self.size, self.step)
         print(self.board)
