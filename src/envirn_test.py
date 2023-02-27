@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 
-import AlphaCat.board as Aboard
+import AlphaCat.Game as Game
+
 
 def main():
     arr = np.arange(10)
@@ -11,13 +12,18 @@ def main():
     print(rd)
 
     s = pd.Series(rd)
-    data = pd.DataFrame({"s":s, "w":s})
+    data = pd.DataFrame({"s": s, "w": s})
     print(data)
 
-    board = Aboard.Board(8)
-    board.debug();
-
-
+    board = Game.Game(3, 3)
+    board.debug()
+    board.display_grid()
+    print(board.get_avail_moves())
+    board.move(Game.X, (1, 2))
+    board.move(Game.X, (2, 1))
+    print(board.get_avail_moves())
+    board.display_grid()
+    print(board.check_win_fast(Game.X, (0, 0)))
 
 if __name__ == "__main__":
     main()
