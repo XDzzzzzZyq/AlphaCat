@@ -37,3 +37,9 @@ class DumbAI:
 
         if len(moves) > 0:
             self.game.move(self.char, random.sample(moves, 1)[0])
+
+    def rand_move(self):
+
+        moves = self.game.get_avail_moves()
+        if len(moves) > 0:
+            self.game.move(self.char, random.sample(moves, 1)[0])
