@@ -6,6 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="2.28 dumbAI random move">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/AlphaCat.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/AlphaCat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo/demo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AlphaCat/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/AI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AlphaCat/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/envirn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/envirn_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +37,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -50,7 +60,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunManager" selected="Python.test2">
+  <component name="RunManager" selected="Python.Default">
     <configuration name="Default" type="PythonConfigurationType" factoryName="Python">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -64,6 +74,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/train.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="envirn_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlphaCat" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/envirn_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -118,9 +149,11 @@
       <item itemvalue="Python.Default" />
       <item itemvalue="Python.test2" />
       <item itemvalue="Python.testM" />
+      <item itemvalue="Python.envirn_test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.envirn_test" />
         <item itemvalue="Python.test2" />
         <item itemvalue="Python.testM" />
       </list>
@@ -209,6 +242,12 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/AlphaCat/dumbAI.py</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

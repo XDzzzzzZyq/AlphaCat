@@ -1,3 +1,5 @@
+from typing import List
+
 import numpy as np
 
 X = -1
@@ -39,16 +41,8 @@ class Game:
 
         print(res)
 
-    def get_avail_moves(self) -> list[np.array]:
-
-        empty_area = []
-
-        for x in range(self.size):
-            for y in range(self.size):
-                if self.board[x, y] == 0:
-                    empty_area += [(x, y)]
-
-        return empty_area
+    def get_avail_moves(self) -> list[tuple]:
+        return [tuple(m) for m in np.transpose(np.where(self.board == 0))]
 
     def check_move(self, move: tuple[int, int]) -> bool:
 
@@ -116,15 +110,19 @@ class Game:
         min_dist = np.min(loc - bound_min)
         max_dist = np.min(bound_max - loc)
         for i in range(max_dist + min_dist + 1 - self.max_len):
-            s = [self.board[loc - min_dist + i + j] for j in range(self.max_len)]
+            s = [self.board[tuple(loc - min_dist + i + j)] for j in range(self.max_len)]
             if np.sum(s) == player * self.max_len:
                 self.board[loc] = 0
                 return True
         # r_t -> l_b
-        min_dist = np.min(np.abs(loc - np.array([bound_max[0], bound_min[1]])))
-        max_dist = np.min(np.abs(np.array([bound_min[0], bound_max[1]]) - loc))
-        for i in range(max_dist + min_dist + 1 - self.max_len):
-            s = [loc + np.array([bound_max[0] - i - j - 1, bound_min[1] + i + j + 1]) for j in range(self.max_len)]
+        #print([bound_min[0], bound_max[1]], [bound_max[0], bound_min[1]])
+        min_dist = np.min(np.abs(loc - np.array([bound_max[0]-1, bound_min[1]])))
+        max_dist = np.min(np.abs(np.array([bound_min[0], bound_max[1]-1]) - loc))
+        #print(min_dist, max_dist)
+        for i in range(max_dist + min_dist + 2 - self.max_len):
+            #print([tuple(loc + np.array([min_dist - i - j, -min_dist + i + j])) for j in range(self.max_len)])
+            s = [self.board[tuple(loc + np.array([min_dist - i - j, -min_dist + i + j]))] for j in range(self.max_len)]
+            #print(s)
             if np.sum(s) == player * self.max_len:
                 self.board[loc] = 0
                 return True
@@ -132,10 +130,6 @@ class Game:
         self.board[loc] = 0
         return False
 
-    def get_win_loc(self, player: int) -> list[list[tuple]]:
+    def get_win_loc(self, player: int) -> list[tuple]:
         moves = self.get_avail_moves()
-        for m in moves:
-            if self.check_win_fast(player):
-                return m
-
-        return None
+        return [m for m in moves if self.check_win_fast(player, m)]

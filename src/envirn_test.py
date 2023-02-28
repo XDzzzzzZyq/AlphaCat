@@ -19,11 +19,14 @@ def main():
     board.debug()
     board.display_grid()
     print(board.get_avail_moves())
-    board.move(Game.X, (1, 2))
-    board.move(Game.X, (2, 1))
+    board.move(Game.X, (0, 2))
+    board.move(Game.X, (2, 0))
     print(board.get_avail_moves())
     board.display_grid()
-    print(board.check_win_fast(Game.X, (0, 0)))
+    print(board.check_win_fast(Game.X, (2, 2)))
+
+
+    print("run")
 
 if __name__ == "__main__":
     main()

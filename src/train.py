@@ -1,38 +1,42 @@
 import AlphaCat.Game as Game
 import AlphaCat.dumbAI as ai
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 def main():
-    game = Game.Game(3, 3)
 
-    AI1 = ai.DumbAI(Game.X, game)
-    AI2 = ai.DumbAI(Game.O, game)
+    print("start")
+    res = {"ai1": 0, "ai2": 0, "draw": 0}
 
     round_count = 0;
 
-    while True:
+    game = Game.Game(3, 3)
+    ai1 = ai.DumbAI(Game.X, game)
+    ai2 = ai.DumbAI(Game.O, game)
+    while round_count < 50:
+        game.reset()
+        while True:
+
+            if ai1.move():
+                res["ai1"] += 1
+                break
+            if not game.get_avail_moves():
+                res["draw"] += 1
+                break
+
+            if ai2.move():
+                res["ai2"] += 1
+                break
+            if not game.get_avail_moves():
+                res["draw"] += 1
+                break
 
         round_count += 1
+        #game.display_grid()
 
-        AI1.move()
-        if game.check_win(AI1.char):
-            print("AI1", round_count)
-            game.display_grid()
-            break
-        if len(game.get_avail_moves()) == 0:
-            print("P", round_count)
-            game.display_grid()
-            break
-
-        AI2.move()
-        if game.check_win(AI2.char):
-            print("AI2", round_count)
-            game.display_grid()
-            break
-        if len(game.get_avail_moves()) == 0:
-            print("P", round_count)
-            game.display_grid()
-            break
+    print(res)
 
 
 if __name__ == "__main__":
