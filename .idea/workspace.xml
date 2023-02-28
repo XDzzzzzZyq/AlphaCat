@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="2.27 notebook demo upload">
-      <change afterPath="$PROJECT_DIR$/src/AlphaCat/Game.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AlphaCat/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" afterDir="false" />
+    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="2.28 dumbAI random move">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AlphaCat/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/AI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AlphaCat/board.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/envirn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/envirn_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +50,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.test2">
     <configuration name="Default" type="PythonConfigurationType" factoryName="Python">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -79,6 +72,59 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlphaCat" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/test2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="testM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlphaCat" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="D:\DKU\Math\stats102\AlphaCat\demo\testM.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.Default" />
+      <item itemvalue="Python.test2" />
+      <item itemvalue="Python.testM" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test2" />
+        <item itemvalue="Python.testM" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -110,7 +156,35 @@
       <option name="project" value="LOCAL" />
       <updated>1677336896113</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="2.27 basic AI compete">
+      <created>1677511902170</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1677511902170</updated>
+    </task>
+    <task id="LOCAL-00005" summary="2.27 notebook imports py test">
+      <created>1677513589393</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1677513589393</updated>
+    </task>
+    <task id="LOCAL-00006" summary="2.27 notebook imports py test">
+      <created>1677514053165</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1677514053165</updated>
+    </task>
+    <task id="LOCAL-00007" summary="2.28 dumbAI random move">
+      <created>1677516676428</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1677516676428</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -128,7 +202,10 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="2.25 project initialization" />
     <MESSAGE value="2.25 environment test" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.25 environment test" />
+    <MESSAGE value="2.27 basic AI compete" />
+    <MESSAGE value="2.27 notebook imports py test" />
+    <MESSAGE value="2.28 dumbAI random move" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.28 dumbAI random move" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
