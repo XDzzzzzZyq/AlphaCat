@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="2.28 dumbAI random move">
+      <change afterPath="$PROJECT_DIR$/articles/Linear Programming and Markov Decision Chains.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/AlphaCat.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo/AlphaCat.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/demo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/AI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/Game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/envirn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/envirn_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -242,12 +240,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/AlphaCat/dumbAI.py</url>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

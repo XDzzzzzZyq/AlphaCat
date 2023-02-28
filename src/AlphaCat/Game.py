@@ -9,6 +9,7 @@ O = 1
 class Game:
     size: int
     step: int
+    last_player: int
     max_len: int
     board: np.array
 
@@ -56,6 +57,8 @@ class Game:
         if not self.check_move(loc):
             return
 
+        self.last_player = player
+        self.step += 1
         self.board[loc] = player
 
     def check_win(self, player: int) -> bool:
@@ -115,14 +118,14 @@ class Game:
                 self.board[loc] = 0
                 return True
         # r_t -> l_b
-        #print([bound_min[0], bound_max[1]], [bound_max[0], bound_min[1]])
-        min_dist = np.min(np.abs(loc - np.array([bound_max[0]-1, bound_min[1]])))
-        max_dist = np.min(np.abs(np.array([bound_min[0], bound_max[1]-1]) - loc))
-        #print(min_dist, max_dist)
+        # print([bound_min[0], bound_max[1]], [bound_max[0], bound_min[1]])
+        min_dist = np.min(np.abs(loc - np.array([bound_max[0] - 1, bound_min[1]])))
+        max_dist = np.min(np.abs(np.array([bound_min[0], bound_max[1] - 1]) - loc))
+        # print(min_dist, max_dist)
         for i in range(max_dist + min_dist + 2 - self.max_len):
-            #print([tuple(loc + np.array([min_dist - i - j, -min_dist + i + j])) for j in range(self.max_len)])
+            # print([tuple(loc + np.array([min_dist - i - j, -min_dist + i + j])) for j in range(self.max_len)])
             s = [self.board[tuple(loc + np.array([min_dist - i - j, -min_dist + i + j]))] for j in range(self.max_len)]
-            #print(s)
+            # print(s)
             if np.sum(s) == player * self.max_len:
                 self.board[loc] = 0
                 return True
@@ -133,3 +136,14 @@ class Game:
     def get_win_loc(self, player: int) -> list[tuple]:
         moves = self.get_avail_moves()
         return [m for m in moves if self.check_win_fast(player, m)]
+
+    def get_state(self, player: int) -> int:
+        ret = self.board.reshape(self.size ** 2) * player + 1  # [-1, 1] -> [0, 2]
+        loc = 3 ** np.arange(self.size ** 2)
+        return int(np.sum(loc * ret))
+
+    def get_2d_loc(self, loc: int) -> tuple:
+        return int(loc % self.size), int(loc / self.size)
+
+    def get_1d_loc(self, loc: tuple) -> int:
+        return loc[0]+loc[1]*self.size
