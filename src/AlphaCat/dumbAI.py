@@ -41,5 +41,9 @@ class DumbAI:
     def rand_move(self):
 
         moves = self.game.get_avail_moves()
-        if len(moves) > 0:
-            self.game.move(self.char, random.choice(moves))
+
+        if moves is not None:
+            move = random.choice(moves)
+            r, win = self.game.move(self.char, move)
+            return win
+        return False

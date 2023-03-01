@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="2.28 dumbAI random move">
-      <change afterPath="$PROJECT_DIR$/articles/Linear Programming and Markov Decision Chains.pdf" afterDir="false" />
+    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="2.28 basic Q-table based AI movement">
+      <change afterPath="$PROJECT_DIR$/src/q-table.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/AI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/Game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/envirn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/envirn_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +60,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="RunManager" selected="Python.Default">
+  <component name="RunManager" selected="Python.test">
     <configuration name="Default" type="PythonConfigurationType" factoryName="Python">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,6 +95,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/envirn_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlphaCat" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -148,9 +171,11 @@
       <item itemvalue="Python.test2" />
       <item itemvalue="Python.testM" />
       <item itemvalue="Python.envirn_test" />
+      <item itemvalue="Python.test" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.envirn_test" />
         <item itemvalue="Python.test2" />
         <item itemvalue="Python.testM" />
@@ -215,7 +240,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677516676428</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="2.28 basic Q-table based AI movement">
+      <created>1677589464970</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1677589464970</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -236,7 +268,8 @@
     <MESSAGE value="2.27 basic AI compete" />
     <MESSAGE value="2.27 notebook imports py test" />
     <MESSAGE value="2.28 dumbAI random move" />
-    <option name="LAST_COMMIT_MESSAGE" value="2.28 dumbAI random move" />
+    <MESSAGE value="2.28 basic Q-table based AI movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="2.28 basic Q-table based AI movement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

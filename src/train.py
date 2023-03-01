@@ -10,41 +10,40 @@ import matplotlib.pyplot as plt
 def main():
     print("start")
 
-    train_count = 0
-
     game = Game.Game(3, 3)
     ai1 = ais.SmartAI(Game.X, game)
     ai2 = ais.SmartAI(Game.O, game)
     ai3 = aid.DumbAI(Game.O, game)
 
+    train_count = 10000
+    test_count = 200
+
     # training
     res = {"ai1": 0, "ai2": 0, "draw": 0}
-    while train_count < 50:
+    for i in range(train_count):
+        if i % 100 == 0: print("    training:", float(i) / train_count)
         game.reset()
         while True:
 
-            if ai1.move():
+            if ai1.rand_move():
                 res["ai1"] += 1
                 break
             if not game.get_avail_moves():
                 res["draw"] += 1
                 break
 
-            if ai3.move():
+            if ai2.move(True):
                 res["ai2"] += 1
                 break
             if not game.get_avail_moves():
                 res["draw"] += 1
                 break
-
-        train_count += 1
         # game.display_grid()
     game.reset()
-    print(res)
+    print("train", res)
     # testing
     res = {"ai1": 0, "ai2": 0, "draw": 0}
-    test_count = 0
-    while test_count < 0:
+    for i in range(test_count):
         game.reset()
         while True:
 
@@ -55,16 +54,15 @@ def main():
                 res["draw"] += 1
                 break
 
-            if ai3.move():
+            if ai2.move():
                 res["ai2"] += 1
                 break
             if not game.get_avail_moves():
                 res["draw"] += 1
                 break
 
-        test_count += 1
-
-    print(res)
+    print("test ", res)
+    ais.SmartAI.Q_table.to_excel("q-table.xlsx")
 
 
 if __name__ == "__main__":

@@ -20,13 +20,13 @@ def main():
     board.display_grid()
     print(board.get_avail_moves())
     board.move(Game.X, (0, 2))
-    board.move(Game.X, (2, 0))
+    board.move(Game.X, (0, 1))
     print(board.get_avail_moves())
     board.display_grid()
-    print(board.check_win_fast(Game.X, (2, 2)))
-
-
-    print("run")
+    #print(board.check_win_fast(Game.X, (2, 2)))
+    print(board.get_award(Game.O, (0, 0)))
+    #board.get_grid_from_state(2638)
+    #print("run")
 
 if __name__ == "__main__":
     main()
