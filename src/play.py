@@ -19,7 +19,9 @@ def main():
             print("Draw")
             break
 
-        move = game.get_2d_loc(int(input("move: ")))
+        move = (-1, -1)
+        while not game.check_move(move):
+            move = game.get_2d_loc(int(input("move: ")))
         win = game.check_win_fast(player, move)
         game.move(player, move)
         game.display_grid()

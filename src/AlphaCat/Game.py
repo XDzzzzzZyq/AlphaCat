@@ -43,8 +43,10 @@ class Game:
 
     def check_move(self, move: tuple[int, int]) -> bool:
 
-        if not 0 <= move[0] < self.size: raise Exception('move out of boundary')
-        if not 0 <= move[1] < self.size: raise Exception('move out of boundary')
+        if not 0 <= move[0] < self.size:
+            return False
+        if not 0 <= move[1] < self.size:
+            return False
 
         return self.board[move] == 0
 
@@ -54,7 +56,7 @@ class Game:
             return -self.max_len, False
 
         win = self.check_win_fast(player, loc)
-        reward = int(win) + self.check_win_fast(-player, loc)
+        reward = int(win)*3 + self.check_win_fast(-player, loc)
 
         self.last_player = player
         self.step += 1

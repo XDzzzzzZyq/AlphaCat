@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="3.1 Q-learning Tic-Tac-Toe implementation">
-      <change afterPath="$PROJECT_DIR$/src/play.py" afterDir="false" />
+    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="3.2 winning rate improved">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/AI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/Game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/envirn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/envirn_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/play.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/play.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/q-table.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/q-table.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +27,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -69,7 +68,7 @@
       <recent name="D:\DKU\Math\stats102\AlphaCat\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.play">
     <configuration name="Default" type="PythonConfigurationType" factoryName="Python">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -206,9 +205,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.play" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.envirn_test" />
-        <item itemvalue="Python.play" />
         <item itemvalue="Python.test2" />
         <item itemvalue="Python.testM" />
       </list>
@@ -289,7 +288,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677641032521</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="3.2 winning rate improved">
+      <created>1677760445281</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1677760445281</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -312,7 +318,8 @@
     <MESSAGE value="2.28 dumbAI random move" />
     <MESSAGE value="2.28 basic Q-table based AI movement" />
     <MESSAGE value="3.1 Q-learning Tic-Tac-Toe implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="3.1 Q-learning Tic-Tac-Toe implementation" />
+    <MESSAGE value="3.2 winning rate improved" />
+    <option name="LAST_COMMIT_MESSAGE" value="3.2 winning rate improved" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

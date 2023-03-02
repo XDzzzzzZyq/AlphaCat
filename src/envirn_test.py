@@ -24,6 +24,7 @@ def main():
     print(board.get_avail_moves())
     board.display_grid()
     print(board.check_win_fast(Game.X, (0, 0)))
+    print(board.get_grid_from_state(886))
     #print(board.get_award(Game.O, (0, 0)))
     #board.get_grid_from_state(2638)
     #print("run")
