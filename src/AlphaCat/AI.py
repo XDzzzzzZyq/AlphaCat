@@ -18,9 +18,18 @@ class SmartAI:
         if SmartAI.Q_table is None:
             if cache is None:
                 SmartAI.Q_table = pd.DataFrame(np.zeros((3 ** (self.game.size ** 2), (self.game.size ** 2))))
+                SmartAI.Q_table.index.name = "state"
             else:
                 print("load", cache)
-                SmartAI.Q_table = pd.read_excel(cache)
+                SmartAI.Q_table = pd.read_excel(cache).set_index("state")
+
+    def get_action(self) -> tuple:
+        action = None
+        moves = self.game.get_avail_moves()
+
+        if np.sum(self.game.board[moves]) != 0:
+            _Q, action = max((self.Q_table[self.game.board][act], act) for act in moves)
+        return action
 
     def move(self, train: bool = False):
 
@@ -30,19 +39,18 @@ class SmartAI:
 
         avail = [self.game.get_1d_loc(m) for m in moves]
         state_o = self.game.get_state(self.char)
+        max_v, move = max((SmartAI.Q_table.iloc[state_o][a], a) for a in avail)
         if train:
-            if np.random.uniform() > self.eplis:
+            if np.random.uniform() > self.eplis and max_v != 0:
                 # exploitation
 
-                max_v = np.max(SmartAI.Q_table.iloc[state_o][avail])
-                move = np.random.choice([i for i in avail if SmartAI.Q_table.iloc[state_o][i] == max_v])
                 # print(avail, move)
                 reward, win = self.game.move(self.char, self.game.get_2d_loc(move))
 
                 state_n = self.game.get_state(-self.char)
 
                 SmartAI.Q_table.iloc[state_o][move] += self.l_rate * (reward
-                                                                      - self.discount * max(SmartAI.Q_table.iloc[state_n])
+                                                                      + self.discount * max(SmartAI.Q_table.iloc[state_n])
                                                                       - SmartAI.Q_table.iloc[state_o][move])
                 # print(state_o, move, reward)
                 return win
@@ -51,9 +59,12 @@ class SmartAI:
                 # exploration
                 move = random.choice(moves)
                 reward, win = self.game.move(self.char, move)
+                state_n = self.game.get_state(self.char)
 
                 SmartAI.Q_table.iloc[state_o][self.game.get_1d_loc(move)] += self.l_rate * (
-                        reward - SmartAI.Q_table.iloc[state_o][self.game.get_1d_loc(move)])
+                        reward
+                        + self.discount * max(SmartAI.Q_table.iloc[state_n])
+                        - SmartAI.Q_table.iloc[state_o][self.game.get_1d_loc(move)])
 
                 return win
 
@@ -62,7 +73,7 @@ class SmartAI:
             max_v = np.max(SmartAI.Q_table.iloc[state_o][avail])
             move = np.random.choice([i for i in avail if SmartAI.Q_table.iloc[state_o][i] == max_v])
             reward, win = self.game.move(self.char, self.game.get_2d_loc(move))
-            #self.game.display_grid()
+            # self.game.display_grid()
             return win
 
     def rand_move(self):

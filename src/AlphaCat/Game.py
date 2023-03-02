@@ -24,31 +24,19 @@ class Game:
 
     def get_grid_from_state(self, state: int):
         res = []
-        for i in range(9):
-            res += [state % 3]
-            state = int(state/3)
+        for i in range(self.size*self.size):
+            res += [state % self.size]
+            state = int(state / self.size)
 
-        print(np.array(res).reshape((3, 3))-1)
+        print(np.array(res).reshape((self.size, self.size)) - 1)
 
     def reset(self):
         self.board = np.zeros((self.size, self.size), dtype=int)
+        self.step = 0
 
     def debug(self) -> None:
         print(self.size, self.step)
         print(self.board)
-
-    def display_grid(self) -> None:
-        res = ""
-
-        res += "-" * (5 * self.size + 1) + "\n"
-        for i in self.board.T:
-            res += "|"
-            for j in i:
-                res += f" {j:2} |"
-            res += "\n"
-            res += "-" * (5 * self.size + 1) + "\n"
-
-        print(res)
 
     def get_avail_moves(self) -> list[tuple]:
         return [tuple(m) for m in np.transpose(np.where(self.board == 0))]
@@ -66,13 +54,18 @@ class Game:
             return -self.max_len, False
 
         win = self.check_win_fast(player, loc)
-        award = int(win) + self.check_win_fast(-player, loc)
+        reward = int(win) + self.check_win_fast(-player, loc)
 
         self.last_player = player
         self.step += 1
         self.board[loc] = player
 
-        return award, win
+        moves_n = self.get_avail_moves()
+        for m in moves_n:
+            if self.check_win_fast(-player, m):
+                reward -= 1
+
+        return reward, win
 
     def check_win(self, player: int) -> bool:
 
@@ -195,7 +188,7 @@ class Game:
 
         self.board[loc] = 0
 
-        return award*2**len + self.get_award(player, loc, len-1)
+        return award * 2 ** len + self.get_award(player, loc, len - 1)
 
     def get_win_loc(self, player: int) -> list[tuple]:
         moves = self.get_avail_moves()
@@ -207,7 +200,36 @@ class Game:
         return int(np.sum(loc * ret))
 
     def get_2d_loc(self, loc: int) -> tuple:
-        return int(loc % self.size), int(loc / self.size)
+        y, x = divmod(loc, self.size)
+        return x, y
 
     def get_1d_loc(self, loc: tuple) -> int:
-        return loc[0]+loc[1]*self.size
+        return loc[0] + loc[1] * self.size
+
+    def __str__(self) -> str:
+        res = ""
+
+        res += "-" * (4 * self.size + 1) + "\n"
+        for i in self.board.T:
+            res += "|"
+            for j in i:
+                if j == X:
+                    res += " X |"
+                elif j == 0:
+                    res += "   |"
+                elif j == O:
+                    res += " O |"
+            res += "\n"
+            res += "-" * (4 * self.size + 1) + "\n"
+
+        return res
+
+    def display_grid(self) -> None:
+        print(self.__str__())
+
+    def __eq__(self, other) -> bool:
+        for x in range(self.size):
+            for y in range(self.size):
+                if not self.board[x, y] == other.board[x, y]:
+                    return False
+        return True
