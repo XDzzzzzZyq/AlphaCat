@@ -20,6 +20,7 @@ class SmartAI:
                 SmartAI.Q_table = pd.DataFrame(np.zeros((3 ** (self.game.size ** 2), (self.game.size ** 2))))
                 SmartAI.Q_table.index.name = "state"
             else:
+                cache += f"_{self.game.size}_{self.game.max_len}.xlsx"
                 print("load", cache)
                 SmartAI.Q_table = pd.read_excel(cache).set_index("state")
 

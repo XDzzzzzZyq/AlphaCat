@@ -11,8 +11,8 @@ def main():
     print("start")
 
     game = Game.Game(3, 3)
-    ai1 = SmartAI(Game.X, game, "q-table.xlsx")
-    ai2 = SmartAI(Game.O, game, "q-table.xlsx")
+    ai1 = SmartAI(Game.X, game, "q-table")
+    ai2 = SmartAI(Game.O, game, "q-table")
     ai3 = DumbAI(Game.O, game)
 
     train_count = 5000
@@ -103,7 +103,7 @@ def main():
                 break
 
     print("test ", res)
-    SmartAI.Q_table.to_excel("q-table.xlsx")
+    SmartAI.Q_table.to_excel("q-table_3_3.xlsx")
 
 
 if __name__ == "__main__":
