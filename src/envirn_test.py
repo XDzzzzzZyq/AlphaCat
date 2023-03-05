@@ -2,7 +2,8 @@ import numpy as np
 import pandas as pd
 
 import AlphaCat.Game as Game
-
+import torch
+from collections import deque
 
 def main():
     board = Game.Game(15, 5)
@@ -15,6 +16,23 @@ def main():
     # print(board.get_award(Game.O, (0, 0)))
     # board.get_grid_from_state(2638)
     # print("run")
+
+    # memo = deque(maxlen=3)
+    #memo.append((1, 2, "asd", False))
+    #memo.append((21, 2, "a ssd", False))
+    #memo.append((1, 2, "assd", True))
+
+    #print(memo)
+
+    a = [[[1, 2, 3], [4, 5, 6]]]
+    a = torch.tensor(a)
+    print(a)
+
+    index = [[[1], [2]]]
+    index = torch.tensor(index)
+    print(a.gather(2, index))
+
+    print(torch.cuda.is_available())
 
 
 if __name__ == "__main__":

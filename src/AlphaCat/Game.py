@@ -56,18 +56,25 @@ class Game:
             return -self.max_len, False
 
         win = self.check_win_fast(player, loc)
-        reward = int(win) * 3 + self.check_win_fast(-player, loc)
+
+        if self.max_len < 5:
+            reward = int(win) * 3
+            reward_e = self.check_win_fast(-player, loc)
+        else:
+            reward = self.get_award(player, loc)
+            reward_e = self.get_award(-player, loc) / 2
 
         self.last_player = player
         self.step += 1
         self.board[loc] = player
 
-        moves_n = self.get_avail_moves()
-        for m in moves_n:
-            if self.check_win_fast(-player, m):
-                reward -= 1
+        if self.max_len < 5:
+            moves_n = self.get_avail_moves()
+            for m in moves_n:
+                if self.check_win_fast(-player, m):
+                    reward -= 1
 
-        return reward, win
+        return reward + reward_e, win
 
     def check_win(self, player: int) -> bool:
 
@@ -106,13 +113,13 @@ class Game:
         self.board[loc] = player
         # check y axis
         for i in range(bound_min[1], bound_max[1] - self.max_len + 1):
-            if np.sum(self.board[loc[0], i:i + self.max_len]) == player * self.max_len:
+            if sum(self.board[loc[0], i:i + self.max_len]) == player * self.max_len:
                 self.board[loc] = 0
                 return True
 
         # check x axis
         for i in range(bound_min[0], bound_max[0] - self.max_len + 1):
-            if np.sum(self.board[i:i + self.max_len, loc[1]]) == player * self.max_len:
+            if sum(self.board[i:i + self.max_len, loc[1]]) == player * self.max_len:
                 self.board[loc] = 0
                 return True
 
@@ -121,8 +128,8 @@ class Game:
         min_dist = np.min(loc - bound_min)
         max_dist = np.min(bound_max - loc)
         for i in range(max_dist + min_dist + 1 - self.max_len):
-            s = [self.board[tuple(loc - min_dist + i + j)] for j in range(self.max_len)]
-            if np.sum(s) == player * self.max_len:
+            s = (self.board[tuple(loc - min_dist + i + j)] for j in range(self.max_len))
+            if sum(s) == player * self.max_len:
                 self.board[loc] = 0
                 return True
         # r_t -> l_b
@@ -132,9 +139,9 @@ class Game:
         # print(min_dist, max_dist)
         for i in range(max_dist + min_dist + 2 - self.max_len):
             # print([tuple(loc + np.array([min_dist - i - j, -min_dist + i + j])) for j in range(self.max_len)])
-            s = [self.board[tuple(loc + np.array([min_dist - i - j, -min_dist + i + j]))] for j in range(self.max_len)]
+            s = (self.board[tuple(loc + np.array([min_dist - i - j, -min_dist + i + j]))] for j in range(self.max_len))
             # print(s)
-            if np.sum(s) == player * self.max_len:
+            if sum(s) == player * self.max_len:
                 self.board[loc] = 0
                 return True
 
@@ -159,38 +166,38 @@ class Game:
         self.board[loc] = player
         # check y axis
 
-        for len in range(self.max_len, self.max_len-3, -1):
+        for len in range(self.max_len, self.max_len - 3, -1):
 
             is_counted = False
 
             for i in range(bound_min[1], bound_max[1] - max_len + 1):
-                if np.sum(self.board[loc[0], i:i + max_len]) == player * len:
+                if sum(self.board[loc[0], i:i + max_len]) == player * len:
                     is_counted = True
-                    award += 2**len
+                    award += 2 ** len
 
             # check x axis
             for i in range(bound_min[0], bound_max[0] - max_len + 1):
-                if np.sum(self.board[i:i + max_len, loc[1]]) == player * len:
+                if sum(self.board[i:i + max_len, loc[1]]) == player * len:
                     is_counted = True
-                    award += 2**len
+                    award += 2 ** len
 
             # check diagonal
             # l_t -> r_b
             for i in range(max_dist + min_dist + 1 - max_len):
-                s = [self.board[tuple(loc - min_dist + i + j)] for j in range(max_len)]
-                if np.sum(s) == player * len:
+                s = (self.board[tuple(loc - min_dist + i + j)] for j in range(max_len))
+                if sum(s) == player * len:
                     is_counted = True
-                    award += 2**len
+                    award += 2 ** len
 
             # r_t -> l_b
             for i in range(max_dist_i + min_dist_i + 2 - max_len):
                 # print([tuple(loc + np.array([min_dist - i - j, -min_dist + i + j])) for j in range(self.max_len)])
-                s = [self.board[tuple(loc + np.array([min_dist_i - i - j, -min_dist_i + i + j]))] for j in
-                     range(max_len)]
+                s = (self.board[tuple(loc + np.array([min_dist_i - i - j, -min_dist_i + i + j]))] for j in
+                     range(max_len))
                 # print(s)
-                if np.sum(s) == player * len:
+                if sum(s) == player * len:
                     is_counted = True
-                    award += 2**len
+                    award += 2 ** len
 
             if is_counted:
                 break
@@ -203,7 +210,10 @@ class Game:
         moves = self.get_avail_moves()
         return [m for m in moves if self.check_win_fast(player, m)]
 
-    def get_state(self, player: int) -> int:
+    def get_array_state(self, player: int) -> np.array:
+        return self.board * player
+
+    def get_int_state(self, player: int) -> int:
         ret = self.board.reshape(self.size ** 2) * player + 1  # [-1, 1] -> [0, 2]
         loc = 3 ** np.arange(self.size ** 2)
         return int(np.sum(loc * ret))
