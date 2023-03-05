@@ -41,6 +41,9 @@ class Game:
     def get_avail_moves(self) -> list[tuple]:
         return [tuple(m) for m in np.transpose(np.where(self.board == 0))]
 
+    def get_unavail_moves(self) -> list[tuple]:
+        return [tuple(m) for m in np.transpose(np.where(self.board != 0))]
+
     def check_move(self, move: tuple[int, int]) -> bool:
 
         if not 0 <= move[0] < self.size:
@@ -246,5 +249,14 @@ class Game:
     def display_grid(self) -> None:
         print(self.__str__())
 
+    def count_grid(self):
+        x = np.sum(self.board == X)
+        o = np.sum(self.board == O)
+        n = np.sum(self.board == 0)
+        print("X:", x,"O:", o,"N:", 0)
+
     def __eq__(self, other) -> bool:
         return np.array_equal(self.board, other.board)
+
+    def dist_to_center(self, loc: tuple) -> int:
+        return self.size - abs(self.size / 2 - loc[0]) + abs(self.size / 2 - loc[1])

@@ -31,8 +31,15 @@ def main():
     index = [[[1], [2]]]
     index = torch.tensor(index)
     print(a.gather(2, index))
+    print(a!=1)
 
-    print(torch.cuda.is_available())
+    a = torch.rand(1, 7)
+    print(a)
+    a = a.gather(0, torch.tensor([[2,3,5]]))
+    print(a)
+    print(a.argmax().item())
+
+    print(torch.cuda.is_available(), torch.cuda.get_device_name(0), torch.cuda.get_device_capability())
 
 
 if __name__ == "__main__":
