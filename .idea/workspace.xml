@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="3.5 basic Deep Q-learning implementation">
-      <change afterPath="$PROJECT_DIR$/src/AlphaCat/Model.pth" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DQLtest.py" afterDir="false" />
+    <list default="true" id="74f8fb0d-99d1-4799-92c2-e154c67b3362" name="Changes" comment="3.5 basic Deep Q-learning training">
+      <change afterPath="$PROJECT_DIR$/src/play2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/AI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/AI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AlphaCat/Game.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/Game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AlphaCat/MLP.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/MLP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AlphaCat/Model.pth" beforeDir="false" afterPath="$PROJECT_DIR$/src/AlphaCat/Model.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/envirn_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/envirn_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/play.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/play.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/train2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/train2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,6 +63,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ToolWindowTODO.ShowToolbar" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
@@ -73,28 +76,7 @@
       <recent name="D:\DKU\Math\stats102\AlphaCat\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.train2">
-    <configuration name="AI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="AlphaCat" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="D:\ProgramData\anaconda3\envs\GANtest\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/AlphaCat" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/AlphaCat/AI.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.play2">
     <configuration name="DQLtest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -137,27 +119,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="MLP" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="AlphaCat" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="D:\ProgramData\anaconda3\envs\GANtest\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/AlphaCat" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/AlphaCat/MLP.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -179,6 +140,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="dumbAI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlphaCat" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\ProgramData\anaconda3\envs\GANtest\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/AlphaCat" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/AlphaCat/dumbAI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="envirn_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AlphaCat" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -192,6 +174,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/envirn_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="play2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AlphaCat" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="D:\ProgramData\anaconda3\envs\GANtest\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/play2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -224,18 +227,18 @@
     <list>
       <item itemvalue="Python.Default" />
       <item itemvalue="Python.envirn_test" />
-      <item itemvalue="Python.MLP" />
-      <item itemvalue="Python.AI" />
       <item itemvalue="Python.DQLtest" />
       <item itemvalue="Python.train2" />
+      <item itemvalue="Python.play2" />
+      <item itemvalue="Python.dumbAI" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.play2" />
         <item itemvalue="Python.train2" />
         <item itemvalue="Python.envirn_test" />
+        <item itemvalue="Python.dumbAI" />
         <item itemvalue="Python.DQLtest" />
-        <item itemvalue="Python.AI" />
-        <item itemvalue="Python.MLP" />
       </list>
     </recent_temporary>
   </component>
@@ -349,7 +352,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678018664257</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="3.5 basic Deep Q-learning training">
+      <created>1678033213339</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1678033213339</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,7 +387,8 @@
     <MESSAGE value="3.5 using game parameter as Q-table's file name" />
     <MESSAGE value="3.5 reward calculation reimplement" />
     <MESSAGE value="3.5 basic Deep Q-learning implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="3.5 basic Deep Q-learning implementation" />
+    <MESSAGE value="3.5 basic Deep Q-learning training" />
+    <option name="LAST_COMMIT_MESSAGE" value="3.5 basic Deep Q-learning training" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

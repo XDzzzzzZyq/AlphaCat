@@ -8,6 +8,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import os
 
 from collections import deque
 
@@ -16,12 +17,13 @@ from MLP import DeepQMLP
 
 class AI:
 
+    eplis = 0.2
+    l_rate = 0.1
+    discount = 0.5
+
     def __init__(self, character: int, state=None):
         self.game = state
         self.char = character
-        self.eplis = 0.2
-        self.l_rate = 0.1
-        self.discount = 0.5
 
     def move(self, train: bool = False) -> bool:
         pass
@@ -32,11 +34,11 @@ class AI:
     def rand_move(self):
         moves = self.game.get_avail_moves()
         if moves is not None:
-            dist = [self.game.dist_to_center(m) for m in moves]
+            dist = 2 ** np.array([self.game.dist_to_center(m) for m in moves])
             dist /= sum(dist)
             moves = [self.game.get_1d_loc(m) for m in moves]
             move = np.random.choice(moves, p=dist)
-            r, win = self.game.move(self.char, self.game.get_2d_loc(move))
+            win = self.game.move(self.char, self.game.get_2d_loc(move))
             return win
 
         return False
@@ -61,7 +63,7 @@ class SmartAI(AI):
         moves = self.game.get_avail_moves()
 
         if np.sum(self.game.board[moves]) != 0:
-            _Q, action = max((self.Q_table[self.game.board][act], act) for act in moves)
+            _, action = max((self.Q_table[self.game.board][act], act) for act in moves)
         return action
 
     def move(self, train: bool = False) -> bool:
@@ -85,7 +87,8 @@ class SmartAI(AI):
                         return True
 
                 # print(avail, move)
-                reward, win = self.game.move(self.char, self.game.get_2d_loc(best_move))
+                reward = self.game.get_reward_grid(self.char)[best_move]
+                win = self.game.move(self.char, self.game.get_2d_loc(best_move))
 
                 state_n = self.game.get_int_state(-self.char)
 
@@ -99,7 +102,8 @@ class SmartAI(AI):
             else:
                 # exploration
                 best_move = random.choice(moves)
-                reward, win = self.game.move(self.char, best_move)
+                reward = self.game.get_reward_grid(self.char)[best_move]
+                win = self.game.move(self.char, best_move)
                 state_n = self.game.get_int_state(self.char)
 
                 SmartAI.Q_table.iloc[state_o][self.game.get_1d_loc(best_move)] += self.l_rate * (
@@ -113,7 +117,7 @@ class SmartAI(AI):
 
             max_v = np.max(SmartAI.Q_table.iloc[state_o][avail])
             best_move = np.random.choice([i for i in avail if SmartAI.Q_table.iloc[state_o][i] == max_v])
-            reward, win = self.game.move(self.char, self.game.get_2d_loc(best_move))
+            win = self.game.move(self.char, self.game.get_2d_loc(best_move))
             # self.game.display_grid()
             return win
 
@@ -122,77 +126,135 @@ class BrilliantAI(AI):
 
     train_range: int = 128
     loss = None
+    is_train_roles = True
+    memo = deque(maxlen=10 ** 3)
+    game_size = 0
 
-    MLP_value = MLP_tar = None
-    optimizer = None
+    MLP_reward = MLP_value = MLP_tar = None
+    optimizer_reward = optimizer = None
 
-    def __init__(self, character: int, state=None):
+    def __init__(self, character: int, state=None, Model=None):
         super().__init__(character, state)
-        self.memo = deque(maxlen=10 ** 5)
+
+        BrilliantAI.game_size = state.size
 
         if not BrilliantAI.MLP_value:
-            BrilliantAI.MLP_value = DeepQMLP(self.game.size)
-            BrilliantAI.MLP_tar = DeepQMLP(self.game.size)
-            BrilliantAI.MLP_tar.load_state_dict(BrilliantAI.MLP_value.state_dict())
-            BrilliantAI.optimizer = optim.Adam(BrilliantAI.MLP_value.parameters(), lr=0.005)
+            if not Model:
+                BrilliantAI.MLP_reward = DeepQMLP(self.game.size)
+                BrilliantAI.MLP_value = DeepQMLP(self.game.size)
+                BrilliantAI.MLP_tar = DeepQMLP(self.game.size)
+                BrilliantAI.MLP_tar.load_state_dict(BrilliantAI.MLP_value.state_dict())
+                BrilliantAI.optimizer_reward = optim.Adam(BrilliantAI.MLP_reward.parameters(), lr=0.1)
+                BrilliantAI.optimizer = optim.Adam(BrilliantAI.MLP_value.parameters(), lr=0.1)
+            else:
+                Model = os.path.dirname(__file__) + "\\" + Model
+                BrilliantAI.MLP_value = DeepQMLP(self.game.size)
+                BrilliantAI.MLP_tar = DeepQMLP(self.game.size)
+                state_dict = torch.load(Model)
+                BrilliantAI.MLP_value.load_state_dict(state_dict)
+                BrilliantAI.MLP_tar.load_state_dict(state_dict)
+                BrilliantAI.optimizer = optim.Adam(BrilliantAI.MLP_value.parameters(), lr=0.1)
 
     def move(self, train: bool = False) -> bool:
 
-        move = self.get_action()  # 1D location
+        move = self.get_action(not train)  # 1D location
 
         if train:
-            state_old = self.game.get_array_state(self.char).reshape(self.game.size**2)
-            reward, win = self.game.move(self.char, self.game.get_2d_loc(move))
-            state_new = self.game.get_array_state(-self.char).reshape(self.game.size**2)
-            self.memo.append((state_old, move, reward, win, state_new))
+            if BrilliantAI.is_train_roles:
 
-            BrilliantAI.loss = self.train_long_memory()
-            self.learn()
-            return win
+                state_old = self.game.get_array_state_double(self.char)
+                reward = self.game.get_reward_grid(self.char)
+                win = self.game.move(self.char, self.game.get_2d_loc(move))
+                BrilliantAI.memo.append((state_old, None, reward, None, None))
+
+                return win
+            else:
+
+                # state_old = self.game.get_array_state(self.char).reshape(self.game.size**2)
+                state_old = self.game.get_array_state_double(self.char)
+                reward = self.game.get_reward_grid(self.char)
+                win = self.game.move(self.char, self.game.get_2d_loc(move))
+                # state_new = self.game.get_array_state(-self.char).reshape(self.game.size**2)
+                state_new = self.game.get_array_state_double(-self.char)
+                BrilliantAI.memo.append((state_old, move, reward, win, state_new))
+
+                return win
 
         else:
-            reward, win = self.game.move(self.char, self.game.get_2d_loc(move))
+            win = self.game.move(self.char, self.game.get_2d_loc(move))
             return win
 
-    def train_long_memory(self) -> float:
-        if len(self.memo) < self.train_range:
-            return 100
+    @classmethod
+    def train_long_memory(cls) -> float:
+        if len(cls.memo) < cls.train_range:
+            return -1
 
-        s_o, a_o, r_o, win, s_n = zip(*random.sample(self.memo, self.train_range))
-        s_o = torch.tensor(np.array(s_o), dtype=torch.float32)
-        a_o = torch.tensor(a_o, dtype=torch.long)
-        r_o = torch.tensor(r_o, dtype=torch.float32)
-        win = torch.tensor(win, dtype=torch.long)
-        s_n = torch.tensor(np.array(s_o), dtype=torch.float32)
+        s_o, a_o, r_o, win, s_n = zip(*random.sample(cls.memo, cls.train_range))
+        s_o = torch.tensor(np.array(s_o), dtype=torch.float32)  # [128, 242]
+        a_o = torch.tensor(a_o, dtype=torch.long)               # [128, 1  ]
+        r_o = torch.tensor(r_o, dtype=torch.float32)            # [128, 121]
+        win = torch.tensor(win, dtype=torch.long)               # [128, 1  ]
+        s_n = torch.tensor(np.array(s_n), dtype=torch.float32)  # [128, 242]
 
-        values_predict = BrilliantAI.MLP_value(s_o).gather(2, a_o.view(1, -1, 1)).squeeze(2)
-        values_predict_next = BrilliantAI.MLP_value(s_n).max(2)[0]
-        values_real = r_o - self.discount * values_predict_next + win * self.game.size
-        loss = F.mse_loss(values_predict, values_real)
+        values_predict = BrilliantAI.MLP_value(s_o).gather(0, a_o.view(-1, 1))
+        values_predict_next = BrilliantAI.MLP_value(s_n).max(1)[0]
+        values_real = r_o.gather(0, a_o.view(-1, 1)) - (1-win) * cls.discount * values_predict_next + win * cls.game_size
+        loss = F.mse_loss(values_predict.squeeze(), values_real)
 
         BrilliantAI.optimizer.zero_grad()
         loss.backward()
         BrilliantAI.optimizer.step()
         return loss.item()
 
-    def train_short_memory(self):
-        pass
+    # reward is the role
+    @classmethod
+    def train_roles(cls):
+        if len(BrilliantAI.memo) < cls.train_range:
+            return -1
 
-    def learn(self):
-        BrilliantAI.MLP_tar.load_state_dict(BrilliantAI.MLP_value.state_dict())
+        s_o, _, r_o, _, _ = zip(*random.sample(BrilliantAI.memo, cls.train_range))
+        s_o = torch.tensor(np.array(s_o), dtype=torch.float32)  # [128, 242]
+        r_o = torch.tensor(np.array(r_o), dtype=torch.float32)  # [128, 121]
 
-    def get_action(self) -> int:
+        values_predict = BrilliantAI.MLP_reward(s_o)
+        loss = F.mse_loss(values_predict.squeeze(), r_o)
+
+        BrilliantAI.optimizer_reward.zero_grad()
+        loss.backward()
+        BrilliantAI.optimizer_reward.step()
+        return loss.item()
+
+    def get_action(self, no_rand=False) -> int:
 
         moves = [self.game.get_1d_loc(m) for m in self.game.get_avail_moves()]
+        un_moves = [self.game.get_1d_loc(m) for m in self.game.get_unavail_moves()]
 
-        if np.random.uniform() > self.eplis:
-            state = self.game.get_array_state(self.char).reshape(self.game.size**2)
+        if np.random.uniform() > self.eplis or no_rand:
+            # state = self.game.get_array_state(self.char).reshape(self.game.size**2)
+            state = self.game.get_array_state_double(self.char)
 
-            # for um in un_moves:
-            #    self.memo.append((state, um, -10, False, state))
+            if BrilliantAI.is_train_roles:
+                prediction = BrilliantAI.MLP_reward(state)
+            else:
+                prediction = BrilliantAI.MLP_value(state)
 
-            prediction = BrilliantAI.MLP_value(state)
-            value, action = max((prediction[0, a], a) for a in moves)
+            _, action = max((prediction[0, a], a) for a in moves)
         else:
-            action = random.choice(moves)
+            dist = 2 ** np.array([self.game.dist_to_center(m) for m in moves])
+            dist /= sum(dist)
+            action = np.random.choice(moves, p=dist)
         return action
+
+    @classmethod
+    def learn(cls):
+        if cls.is_train_roles:
+            cls.MLP_value.load_state_dict(cls.MLP_reward.state_dict())
+        else:
+            cls.MLP_tar.load_state_dict(cls.MLP_value.state_dict())
+
+    @classmethod
+    def finish_train_role(cls):
+        cls.learn()
+        cls.is_train_roles = False
+        cls.learn()
+        cls.memo = deque(maxlen=10 ** 3)

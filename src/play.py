@@ -2,6 +2,7 @@ import AlphaCat.Game as Game
 from AlphaCat.dumbAI import DumbAI
 from AlphaCat.AI import SmartAI
 
+
 def main():
     game = Game.Game(3, 3)
     ai = SmartAI(Game.X, game, "q-table")
